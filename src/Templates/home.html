@@ -1,0 +1,23 @@
+<html>
+<Body>
+{{#username}}
+Welcome, {{.}}!
+<form action="/logout" method="post" style="display: inline-block:"?>
+    <button type="submit">Logout</button>
+</form>
+<br>
+{{/username}}
+
+{{^username}}
+<form action="/login" method="post">
+    <input type="text" name="username" placeholder="Enter your name"/>
+    <button type="submit">Login</button>
+</form>
+<br>
+{{/username}}
+
+{{#messages}}
+<a href="/?replyId={{id}}">{{text}}<br></a>
+{{/messages}}
+</Body>
+</html>
