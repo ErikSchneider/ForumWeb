@@ -30,7 +30,7 @@ public class Main {
                         replyId = Integer.valueOf(idString);
                     }
 
-                    ArrayList<Message> subset = new ArrayList<Message>();
+                    ArrayList<Message> subset = new ArrayList<>();
                     for (Message msg : messages) {
                         if (msg.replyId == replyId) {
                             subset.add(msg);
@@ -39,6 +39,7 @@ public class Main {
                     HashMap m = new HashMap<>();
                     m.put("messages", subset);
                     m.put("username", username);
+                    m.put("replyId", replyId);
                     return new ModelAndView(m, "home.html");
                 },
                 new MustacheTemplateEngine()
@@ -74,6 +75,24 @@ public class Main {
                     return "";
                 }
 
+        );
+        Spark.post(
+                "/create-message",
+                (request, response) -> {
+                    Session session = request.session();
+                    String username = session.attribute("username");
+                    if (username == null) {
+                        throw new Exception("Not Logged in");
+                    }
+                    int replyId = Integer.valueOf(request.queryParams("replyId"));
+                    String text = request.queryParams("message");
+
+                    Message msg = new Message(messages.size(), replyId, username, text);
+                    messages.add(msg);
+
+                    response.redirect(request.headers("Referer"));
+                    return "";
+                }
         );
     }
 

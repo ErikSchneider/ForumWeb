@@ -5,6 +5,11 @@ Welcome, {{.}}!
 <form action="/logout" method="post" style="display: inline-block:"?>
     <button type="submit">Logout</button>
 </form>
+<form action="/create-message" method="post">
+    <input type="text" name="message" placeholder="Type your message"/>
+    <input type="hidden" name="replyId" value="{{replyId}}"/>
+    <button type="submit">Submit</button>
+</form>
 <br>
 {{/username}}
 
@@ -17,7 +22,7 @@ Welcome, {{.}}!
 {{/username}}
 
 {{#messages}}
-<a href="/?replyId={{id}}">{{text}}<br></a>
+<a href="/?replyId={{id}}">{{author}} : {{text}}<br></a>
 {{/messages}}
 </Body>
 </html>
