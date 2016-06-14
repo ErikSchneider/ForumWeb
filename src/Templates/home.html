@@ -22,7 +22,7 @@ Welcome, {{.}}!
 {{/username}}
 
 {{#message}}
-<h1>{{author}} {{text}}</h1>
+<h1>{{author}} : {{text}}</h1>
 {{#isMe}}
 <form action="/delete-message" method="post">
     <input type="hidden" name="id" value="{{id}}">
